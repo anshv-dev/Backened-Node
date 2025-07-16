@@ -10,6 +10,10 @@ app.get('/chicken',(req,res)=>{
 app.get('/idli',(req,res)=>{
   res.send('idli le lo')
 })
+
+app.get('/items',(req,res)=>{
+  
+})
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
