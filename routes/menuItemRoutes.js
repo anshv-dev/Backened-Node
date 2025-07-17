@@ -31,11 +31,11 @@ router.get('/',async(req,res)=>{
 
 
 //Creating Worktype GET route
-router.get('/:taste',async(req,res)=>{
+router.get('/:type',async(req,res)=>{
     try {
-      const tasteType=req.params.taste;  //Extract the work type from the URL parameter
+      const tasteType=req.params.type;  //Extract the taste type from the URL parameter
     if(tasteType=='sweet' || tasteType=='spicy' || tasteType=='sour'){
-      const response=await MenuItem.find({work:tasteType});
+      const response=await MenuItem.find({taste:tasteType});
       console.log('response fetched');
       res.status(200).json(response);
     }else{
