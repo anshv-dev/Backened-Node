@@ -47,4 +47,44 @@ router.get('/:type',async(req,res)=>{
     }
 })
 
+
+//Creating PUT method
+router.put('/:id',async(req,res)=>{
+     try {
+        const menuId=req.params.id; //Extract the id from the URL parameter
+        const updatedmenuData=req.body;//Updated data for the person
+
+        const response=await MenuItem.findByIdAndUpdate(menuId,updatedmenuData,{
+           new:true, //Return the updated documents
+           runValidators:true //Run Mongoose validation
+         })
+
+
+         if(!response){
+            return res.status(404).json({error: 'Menu not found'})
+         }
+         console.log('data updated');
+         res.status(200).json(response)
+     } catch (error) {
+        console.log(err);
+        res.status(500).json({error:'Internal Server Error'})
+     }
+})
+
+
+//Creating DELETE method
+router.delete('/:id',async(req,res)=>{
+   try {
+      const menuId=req.params.id;
+      const response=await MenuItem.findByIdAndDelete(menuId);
+      if(!response){
+        return res.status(404).json({error:'Menu not found'});
+      }
+      console.log('data deleted');
+         res.status(200).json({message: 'person deleted successfully'})
+   } catch (error) {
+     console.log(err);
+     res.status(500).json({error:'Internal Server Error'})
+   }
+})
 module.exports=router;
