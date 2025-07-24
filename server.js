@@ -3,6 +3,9 @@ const app = express()
 const PORT=process.env.PORT||3000;
 const db=require('./db')
 require('dotenv').config();
+const passport=require('./auth')
+
+
 const bodyParser=require('body-parser');
 app.use(bodyParser.json());
 
@@ -14,7 +17,13 @@ const logRequest=(req,res,next)=>{
 
 app.use(logRequest)
 
-app.get('/',(req, res) => {
+
+
+app.use(passport.initialize())
+
+const localAuthMiddleware=passport.authenticate('local',{session:false})
+
+app.get('/',localAuthMiddleware,(req, res) => {
   res.send('Hello World!')
 })
 
@@ -24,7 +33,7 @@ const personRoutes=require('./routes/personRoutes');
 const menuRoutes=require('./routes/menuItemRoutes');
 //Use the routers
 app.use('/person',personRoutes);
-app.use('/menu',menuRoutes);
+app.use('/menu',localAuthMiddleware,menuRoutes);
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
 })
