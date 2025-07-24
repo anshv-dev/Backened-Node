@@ -6,9 +6,15 @@ require('dotenv').config();
 const bodyParser=require('body-parser');
 app.use(bodyParser.json());
 
-// const Person=require('./models/Person')
-// const MenuItem=require('./models/MenuItem')
-app.get('/', (req, res) => {
+//Middleware Function
+const logRequest=(req,res,next)=>{
+  console.log(`[${new Date().toLocaleString()}] Request Made to : ${req.originalUrl}`)
+  next();
+}
+
+app.use(logRequest)
+
+app.get('/',(req, res) => {
   res.send('Hello World!')
 })
 
