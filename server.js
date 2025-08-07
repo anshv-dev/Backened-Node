@@ -32,7 +32,7 @@ app.get('/',localAuthMiddleware,(req, res) => {
 const personRoutes=require('./routes/personRoutes');
 const menuRoutes=require('./routes/menuItemRoutes');
 //Use the routers
-app.use('/person',personRoutes);
+app.use('/person',localAuthMiddleware,personRoutes);
 app.use('/menu',localAuthMiddleware,menuRoutes);
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)

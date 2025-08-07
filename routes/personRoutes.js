@@ -14,7 +14,7 @@ router.post('/',async(req,res)=>{
         console.log('data saved');
         res.status(200).json(response);
     } catch (error) {
-        console.log(err);
+        console.log(error);
         res.status(500).json({error: 'Internal Server Error'})
     }
 })
@@ -26,8 +26,8 @@ router.get('/',async(req,res)=>{
       const data=await Person.find();
       console.log('data fetched');
       res.status(200).json(data);
-    }catch(err){
-      console.log(err);
+    }catch(error){
+      console.log(error);
       res.status(500).json({error:'Internal Server Error'})
     }
 })
@@ -45,7 +45,7 @@ router.get('/:worktype',async(req,res)=>{
       res.status(404).json({error:'Invalid work type'})
     }
     } catch (error) {
-      console.log(err);
+      console.log(error);
       res.status(500).json({error:'Internal Server Error'})
     }
 })
@@ -68,7 +68,7 @@ router.put('/:id',async(req,res)=>{
          console.log('data updated');
          res.status(200).json(response)
      } catch (error) {
-        console.log(err);
+        console.log(error);
         res.status(500).json({error:'Internal Server Error'})
      }
 })
@@ -85,7 +85,7 @@ router.delete('/:id',async(req,res)=>{
       console.log('data deleted');
          res.status(200).json({message: 'person deleted successfully'})
    } catch (error) {
-     console.log(err);
+     console.log(error);
      res.status(500).json({error:'Internal Server Error'})
    }
 })
